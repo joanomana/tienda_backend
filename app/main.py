@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes.user import userRoutes
-from routes.product import productRoutes
-from routes.chats import chatRoutes
-from routes.ai import agentRoutes
+# from routes.user import userRoutes
+from routes.productRoutes import productRoutes
+# from routes.chats import chatRoutes
+# from routes.ai import agentRoutes
 
 app = FastAPI()
 
@@ -17,10 +17,10 @@ app.add_middleware(
 )
 
 #routers
-app.include_router(productRoutes.router)
-app.include_router(chatRoutes.router)
-app.include_router(userRoutes.router)
-app.include_router(agentRoutes.router)
+app.include_router(productRoutes)
+# app.include_router(chatRoutes.router)
+# app.include_router(userRoutes.router)
+# app.include_router(agentRoutes.router)
 
 
 @app.get(
