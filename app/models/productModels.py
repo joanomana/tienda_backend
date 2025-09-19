@@ -1,4 +1,4 @@
-# Modelo de producto para PyMySQL
+
 
 class Product:
     def __init__(self, id=None, name=None, category=None, description=None, price=None, stock=None,image_primary_url=None, image_secondary_url=None, image_tertiary_url=None,release_date=None, is_active=True, attributes=None,created_at=None,updated_at=None):

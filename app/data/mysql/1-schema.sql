@@ -21,16 +21,28 @@ CREATE TABLE IF NOT EXISTS products (
     name VARCHAR(100) NOT NULL,
     category ENUM('Iphone','Mac','Ipad','Watch','Accessories') NOT NULL,
     description TEXT,
-    price DECIMAL(10,2) NOT NULL,
-    stock INT DEFAULT 0,
     image_primary_url VARCHAR(255),
     image_secondary_url VARCHAR(255),
     image_tertiary_url VARCHAR(255),
     release_date DATE,
-    is_active BOOLEAN DEFAULT TRUE,
     attributes JSON, -- aquí guardas los detalles específicos
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Variantes de productos
+CREATE TABLE IF NOT EXISTS product_variants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    color VARCHAR(50),
+    storage VARCHAR(50),
+    price DECIMAL(10,2) NOT NULL,
+    stock INT DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE,
+    attributes JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 -- Sales

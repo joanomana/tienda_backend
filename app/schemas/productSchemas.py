@@ -1,27 +1,32 @@
-# Esquema de validación para productos
 from pydantic import BaseModel, Field
-from typing import Optional, Any
+from typing import Optional, Any, List
+from schemas.productVariantSchemas import ProductVariantSchema, ProductVariantDBSchema
 
 class ProductSchema(BaseModel):
     name: str = Field(..., max_length=100)
     category: str = Field(...)
-    description: Optional[str]
-    price: float = Field(..., gt=0)
-    stock: int = Field(default=0, ge=0)
-    image_primary_url: Optional[str]
-    image_secondary_url: Optional[str]
-    image_tertiary_url: Optional[str]
-    release_date: Optional[str]  # ISO date string
-    is_active: Optional[bool] = True
-    attributes: Optional[Any]
-    
+    description: Optional[str] = None
+    image_primary_url: Optional[str] = None
+    image_secondary_url: Optional[str] = None
+    image_tertiary_url: Optional[str] = None
+    release_date: Optional[str] = None  # ISO date string
+    attributes: Optional[Any] = None
+    variants: Optional[List[ProductVariantSchema]] = None
 
-class ProductUpdateSchema(ProductSchema):
-    name: Optional[str]
-    category: Optional[str]
-    price: Optional[float]
-    stock: Optional[int]
-    is_active: Optional[bool]
+class ProductUpdateSchema(BaseModel):
+    name: Optional[str] = None
+    category: Optional[str] = None
+    description: Optional[str] = None
+    image_primary_url: Optional[str] = None
+    image_secondary_url: Optional[str] = None
+    image_tertiary_url: Optional[str] = None
+    release_date: Optional[str] = None
+    is_active: Optional[bool] = None
+    attributes: Optional[Any] = None
+    variants: Optional[List[ProductVariantSchema]] = None
 
 class ProductDBSchema(ProductSchema):
     id: int
+
+class ProductWithVariantsSchema(ProductDBSchema):
+    variants: Optional[List[ProductVariantDBSchema]]
